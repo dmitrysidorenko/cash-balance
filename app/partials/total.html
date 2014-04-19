@@ -1,0 +1,53 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span2">
+            <!--Sidebar content-->
+        </div>
+        <div class="span10">
+            <!--Body content-->
+            <div class="">
+                <div class="datepicker-fliter">
+                    <p class="input-group">
+                        <input type="text" class="form-control" datepicker-popup="MMMM yyyy" ng-model="datepicker.dt"
+                               is-open="datepicker.opened"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" ng-click="datepicker.open($event)"><i
+                                    class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" ng-style="{{incomeRate}}">
+                    <span class="sr-only">35% Complete (success)</span>
+                </div>
+                <div class="progress-bar progress-bar-danger" ng-style="{{expenseRate}}">
+                    <span class="sr-only">10% Complete (danger)</span>
+                </div>
+            </div>
+
+
+            <div style="width:300px; margin: 0 auto">
+                <ul class="lines">
+                    <li ng-repeat="l in linesByCategory" class="" style="overflow: hidden">
+                        <a ng-href="#/category/{{l.category}}">
+                            <span style="float: left">{{l.amount}}</span><span style="float: right">{{l.category}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="row" style="text-align: center;">
+                <div>
+                    Total: {{balance.total}}
+                </div>
+                <a class="btn btn-danger" href="#/add/expense">- Expense</a>
+                <a class="btn btn-success" href="#/add/income">+ Income</a>
+            </div>
+
+        </div>
+    </div>
+</div>
