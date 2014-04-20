@@ -9,7 +9,7 @@
  * @type {{createBalanceLine: string, createCategory: string, removeBalanceLine: string, removeCategory: string}}
  */
 module.exports = {
-    "createBalanceLine": "",
+    "createBalanceLine": "INSERT INTO BalanceLine(Summ, Date, CategoryId, Note) VALUES({{summ}}, {{date}}, {{categoryId}}, {{note}})",
     "createCategory": "",
     "removeBalanceLine": "",
     "removeCategory": ""
