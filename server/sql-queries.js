@@ -12,5 +12,6 @@ module.exports = {
     "createBalanceLine": "INSERT INTO BalanceLine(Summ, Date, CategoryId, Note) VALUES({{summ}}, {{date}}, {{categoryId}}, {{note}})",
     "createCategory": "",
     "removeBalanceLine": "",
-    "removeCategory": ""
+    "removeCategory": "",
+    "getAllBalanceLines": "SELECT * FROM BalanceLine"
 };

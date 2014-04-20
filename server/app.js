@@ -4,6 +4,7 @@
 var express = require('express');
 var path = require('path');
 var mysql = require('mysql');
+var sqlQueries = require('./sql-queries');
 
 var app = express();
 var router = express.Router();
@@ -14,7 +15,7 @@ app.use(require('method-override')());
 app.use(express.static(path.join(__dirname, '../app')));
 app.use(express.static(path.join(__dirname, '../bower_components')));
 
-//app.use(router);
+app.use(router);
 
 
 //db
@@ -34,8 +35,8 @@ router.get('/', function (req, res) {
 });
 
 //api
-router.get('/api/all', function (req, res) {
-    dbConnect().query('SELECT * FROM balanceline', function (err, rows) {
+router.get('/api/balanceLine', function (req, res) {
+    dbConnect().query(sqlQueries.getAllBalanceLines, function (err, rows) {
         if (!err) {
             //success
             return res.send(rows);

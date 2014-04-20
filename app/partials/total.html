@@ -31,9 +31,9 @@
 
             <div style="width:300px; margin: 0 auto">
                 <ul class="lines">
-                    <li ng-repeat="l in linesByCategory" class="" style="overflow: hidden">
+                    <li ng-repeat="l in lines" class="" style="overflow: hidden">
                         <a ng-href="#/category/{{l.category}}">
-                            <span style="float: left">{{l.amount}}</span><span style="float: right">{{l.category}}</span>
+                            <span style="float: left">{{l.Summ}}</span><span style="float: right">{{l.CategoryId}}</span>
                         </a>
                     </li>
                 </ul>

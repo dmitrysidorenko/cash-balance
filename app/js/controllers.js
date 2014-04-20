@@ -4,9 +4,14 @@
 
 var cashBalanceControllers = angular.module('cashBalanceControllers', []);
 
-cashBalanceControllers.controller('BalanceListCtrl', ['$scope',
-    function ($scope) {
+cashBalanceControllers.controller('BalanceListCtrl', ['$scope', 'BalanceLine',
+    function ($scope, BalanceLine) {
         $scope.lines = [];
+
+        BalanceLine.getAll().success(function(data){
+            debugger;
+            $scope.lines = data;
+        });
 
         $scope.incomeRate = {width: '80%'};
         $scope.expenseRate = {width:  '20%'};
