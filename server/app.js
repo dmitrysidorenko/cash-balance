@@ -25,7 +25,7 @@ function dbConnect() {
         port: 3306,
         user: 'root',
         password: '',
-        database:'cashbalance'
+        database: 'cashbalance'
     });
 }
 
@@ -36,9 +36,16 @@ router.get('/', function (req, res) {
 
 //api
 router.get('/api/balanceLine', function (req, res) {
-    dbConnect().query(sqlQueries.getAllBalanceLines, function (err, rows) {
+    var query = null;
+    if (req.query['categoryId']) {
+        query = sqlQueries.getAllBalanceLinesWithCategoriesAndFilterByGroup.replace('{{categoryId}}', req.query['categoryId']);
+    } else {
+        query = sqlQueries.getAllBalanceLinesWithCategories;
+    }
+    dbConnect().query(query, function (err, rows) {
         if (!err) {
             //success
+            res.statusCode = 200;
             return res.send(rows);
         } else {
             res.statusCode = 500;
@@ -46,6 +53,35 @@ router.get('/api/balanceLine', function (req, res) {
             return res.send({ error: 'Server error' });
         }
     });
+});
+router.post('/api/balanceLine', function (req, res) {
+    var query = sqlQueries.createBalanceLine.replace('{{sum}}', req.body.Sum).replace('{{date}}', req.body.Date).replace('{{categoryId}}', req.body.Category.Id).replace('{{note}}', req.body.Note || '');
+    dbConnect().query(query, function (err, result) {
+        if (!err) {
+            //success
+            res.statusCode = 200;
+            return res.send(result.insertId);
+        } else {
+            res.statusCode = 500;
+            console.error('Internal error(%d): %s', res.statusCode, err.message);
+            return res.send({ error: 'Server error' });
+        }
+    });
+});
+
+router.get('/api/category', function (req, res) {
+    dbConnect().query(sqlQueries.getAllCategories, function (err, rows) {
+        if (!err) {
+            //success
+            res.statusCode = 200;
+            return res.send(rows);
+        } else {
+            res.statusCode = 500;
+            console.error('Internal error(%d): %s', res.statusCode, err.message);
+            return res.send({ error: 'Server error' });
+        }
+    });
+
 });
 
 

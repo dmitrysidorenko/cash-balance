@@ -1,0 +1,18 @@
+<div>
+    <a href="#" ng-href="#/">Back</a>
+    <h3 style="text-align: center">{{categoryName}}</h3>
+
+    <div style="width:300px; margin: 0 auto">
+        <ul class="lines">
+            <li ng-repeat="l in lines" class="">
+                <div class="category-line">
+                    <div style="overflow: hidden">
+                        <span style="float: left">{{l.Sum}}</span>
+                        <span style="float: right">{{l.Date | date}}</span>
+                    </div>
+                    <div style="text-align: right">{{l.Note}}</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

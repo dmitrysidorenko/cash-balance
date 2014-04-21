@@ -31,9 +31,10 @@
 
             <div style="width:300px; margin: 0 auto">
                 <ul class="lines">
-                    <li ng-repeat="l in lines" class="" style="overflow: hidden">
-                        <a ng-href="#/category/{{l.category}}">
-                            <span style="float: left">{{l.Summ}}</span><span style="float: right">{{l.CategoryId}}</span>
+                    <li ng-repeat="l in linesByCategory" class="">
+                        <a class="category-line" ng-href="#/category/{{l.Category.Id}}">
+                            <span style="float: left">{{l.Category.Name}}</span>
+                            <span style="float: right">{{l.Sum}}</span>
                         </a>
                     </li>
                 </ul>
