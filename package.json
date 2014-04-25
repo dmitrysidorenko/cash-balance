@@ -1,9 +1,9 @@
 {
     "version": "0.0.0",
     "private": true,
-    "name": "cash-balance",
-    "description": "Application to accounting family budget",
-    "repository": "https://github.com/dmitrysidorenko/cash-balance",
+    "name": "log-viewer",
+    "description": "Application to view huge amount of logs",
+    "repository": "https://github.com/dmitrysidorenko/log-viewer",
     "license": "MIT",
     "devDependencies": {
         "karma": "~0.10",

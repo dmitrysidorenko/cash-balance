@@ -2,28 +2,8 @@
 
 /* App Module */
 
-var cashBalanceApp = angular.module('cashBalanceApp', [
-    'ngRoute',
-    'cashBalanceControllers',
-    'cashBalanceServices',
-    'ui.bootstrap'
+var app = angular.module('app', [
+    'ui.bootstrap',
+    'ngGrid'
 ]);
 
-cashBalanceApp.config(['$routeProvider',
-    function ($routeProvider) {
-        $routeProvider.when('/', {
-            templateUrl: 'partials/total.html',
-            controller: 'BalanceListCtrl'
-        }).
-            when('/add/:type', {
-                templateUrl: 'partials/add.html',
-                controller: 'AddCtrl'
-            }).
-            when('/category/:category', {
-                templateUrl: 'partials/category.html',
-                controller: 'CategoryCtrl'
-            }).
-            otherwise({
-                redirectTo: '/'
-            });
-    }]);

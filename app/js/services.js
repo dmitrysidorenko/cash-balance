@@ -2,13 +2,13 @@
 
 /* Services */
 
-var cashBalanceServices = angular.module('cashBalanceServices', []);
+var cashBalanceServices = angular.module('logServices', []);
 
 cashBalanceServices.factory('BalanceLine', function ($http) {
     var factory = {};
 
     factory.getAll = function(){
-        return $http.get('/api/balanceline');
+        return $http.get('/api/log');
     }.bind(factory);
 
     factory.getAllByCategory = function(categoryId){

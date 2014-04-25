@@ -1,6 +1,6 @@
 {
-    "name": "Cash Balance",
-    "description": "Application to accounting family budget",
+    "name": "log-viewer",
+    "description": "Application to view huge amount of logs",
     "version": "0.0.0",
     "homepage": "https://github.com/dmitrysidorenko/cash-balance",
     "license": "MIT",
@@ -13,6 +13,7 @@
         "angular-resource": "~1.2.15",
         "jquery": "1.10.2",
         "angular-animate": "~1.2.15",
-        "angular-bootstrap": "*"
+        "angular-bootstrap": "*",
+        "ng-grid":"*"
     }
 }

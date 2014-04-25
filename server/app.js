@@ -3,8 +3,6 @@
  */
 var express = require('express');
 var path = require('path');
-var mysql = require('mysql');
-var sqlQueries = require('./sql-queries');
 
 var app = express();
 var router = express.Router();
@@ -17,73 +15,63 @@ app.use(express.static(path.join(__dirname, '../bower_components')));
 
 app.use(router);
 
-
-//db
-function dbConnect() {
-    return mysql.createConnection({
-        host: 'localhost',
-        port: 3306,
-        user: 'root',
-        password: '',
-        database: 'cashbalance'
-    });
-}
-
-
 router.get('/', function (req, res) {
     res.sendfile(path.join(__dirname, '../app/index.html'));
 });
 
 //api
-router.get('/api/balanceLine', function (req, res) {
-    var query = null;
-    if (req.query['categoryId']) {
-        query = sqlQueries.getAllBalanceLinesWithCategoriesAndFilterByGroup.replace('{{categoryId}}', req.query['categoryId']);
-    } else {
-        query = sqlQueries.getAllBalanceLinesWithCategories;
-    }
-    dbConnect().query(query, function (err, rows) {
-        if (!err) {
-            //success
-            res.statusCode = 200;
-            return res.send(rows);
-        } else {
-            res.statusCode = 500;
-            console.error('Internal error(%d): %s', res.statusCode, err.message);
-            return res.send({ error: 'Server error' });
-        }
-    });
+//(date/time. ip, user-agent, url, status-code, generation-time, size)
+router.get('/api/log', function (req, res) {
+    var page = req.query['page'] || 0;
+    var pageSize = req.query['pageSize'] || 50;
+    res.send([
+        {
+            datetime: new Date(),
+            ip: 1,
+            userAgent: "Chrome",
+            url: "http://some-site.com",
+            statusCode: 200,
+            generationTime: '10.34',
+            size: 123
+        },
+        {
+            datetime: new Date(),
+            ip: 1,
+            userAgent: "Chrome",
+            url: "http://some-site.com",
+            statusCode: 200,
+            generationTime: '10.34',
+            size: 123
+        },
+        {
+            datetime: new Date(),
+            ip: 1,
+            userAgent: "Chrome",
+            url: "http://asome-site.com",
+            statusCode: 200,
+            generationTime: '10.34',
+            size: 123
+        },
+        {
+            datetime: new Date(),
+            ip: 1,
+            userAgent: "Chrome",
+            url: "http://some-site.com",
+            statusCode: 500,
+            generationTime: '10.34',
+            size: 123
+        },
+        {
+            datetime: new Date(),
+            ip: 1,
+            userAgent: "Chrome",
+            url: "http://some-site.com",
+            statusCode: 200,
+            generationTime: '10.34',
+            size: 123
+        },
+    ]);
 });
-router.post('/api/balanceLine', function (req, res) {
-    var query = sqlQueries.createBalanceLine.replace('{{sum}}', req.body.Sum).replace('{{date}}', req.body.Date).replace('{{categoryId}}', req.body.Category.Id).replace('{{note}}', req.body.Note || '');
-    dbConnect().query(query, function (err, result) {
-        if (!err) {
-            //success
-            res.statusCode = 200;
-            return res.send(result.insertId);
-        } else {
-            res.statusCode = 500;
-            console.error('Internal error(%d): %s', res.statusCode, err.message);
-            return res.send({ error: 'Server error' });
-        }
-    });
-});
-
-router.get('/api/category', function (req, res) {
-    dbConnect().query(sqlQueries.getAllCategories, function (err, rows) {
-        if (!err) {
-            //success
-            res.statusCode = 200;
-            return res.send(rows);
-        } else {
-            res.statusCode = 500;
-            console.error('Internal error(%d): %s', res.statusCode, err.message);
-            return res.send({ error: 'Server error' });
-        }
-    });
-
-});
-
 
 //run
 app.listen(8080, function () {
